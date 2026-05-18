@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Parole — Versets Bibliques</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: #000;
+      overflow: hidden;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+
+    #app {
+      width: 100%;
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    #app::-webkit-scrollbar { display: none; }
+
+    /* ── TOP BAR ── */
+    #topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px 12px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
+      pointer-events: none;
+    }
+    #topbar .logo {
+      display: flex; align-items: center; gap: 8px;
+      color: white; font-family: 'Cinzel', serif;
+      font-size: 1.2rem; letter-spacing: 0.12em; font-weight: 600;
+    }
+    #topbar .counter {
+      color: rgba(255,255,255,0.35);
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem; letter-spacing: 0.2em;
+    }
+
+    /* ── CARD ── */
+    .card {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 80px 32px 120px;
+    }
+
+    .card-bg {
+      position: absolute; inset: 0;
+      z-index: 0;
+      transition: opacity 0.6s var(--ease);
+    }
+
+    /* Orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .orb1 { width: 420px; height: 420px; top: -120px; right: -120px; }
+    .orb2 { width: 380px; height: 380px; bottom: -100px; left: -100px; }
+    .orb3 { width: 280px; height: 280px; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.08; }
+
+    /* Content */
+    .card-content {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column;
+      align-items: center; text-align: center;
+      gap: 24px; max-width: 480px; width: 100%;
+    }
+
+    .book-badge {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem; letter-spacing: 0.22em;
+      text-transform: uppercase; font-weight: 400;
+    }
+
+    .quote-mark {
+      font-size: 5rem; line-height: 1;
+      opacity: 0.15; align-self: flex-start;
+      margin-bottom: -20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+    }
+
+    .verse-text {
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.93);
+      font-style: italic;
+      text-shadow: 0 2px 30px rgba(0,0,0,0.6);
+      letter-spacing: 0.01em;
+    }
+
+    .divider {
+      display: flex; align-items: center; gap: 12px;
+      width: 100%;
+    }
+    .divider-line { flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
+
+    .verse-ref {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem; letter-spacing: 0.2em;
+      text-transform: uppercase; font-weight: 600;
+    }
+
+    /* ── ACTIONS ── */
+    .actions {
+      position: absolute;
+      right: 16px; bottom: 100px;
+      z-index: 10;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 20px;
+    }
+
+    .action-btn {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 5px;
+      background: none; border: none; cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .action-icon {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      transition: all 0.25s var(--ease);
+    }
+    .action-btn:active .action-icon,
+    .action-btn.active .action-icon {
+      background: rgba(255,255,255,0.18);
+      border-color: rgba(255,255,255,0.3);
+      transform: scale(1.15);
+    }
+
+    .action-icon svg { transition: all 0.25s var(--ease); }
+    .action-btn.liked .action-icon { background: rgba(255,255,255,0.2); }
+
+    .action-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem; letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+    .action-btn.flash .action-label { color: rgba(255,255,255,0.9); }
+
+    /* ── SCROLL HINT ── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 24px; left: 0; right: 0;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 6px;
+      animation: bounce 2s infinite;
+      pointer-events: none;
+    }
+    .scroll-hint span {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem; letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* ── CARD ENTER ANIMATION ── */
+    .card-content { opacity: 0; transform: translateY(20px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+    .card.visible .card-content { opacity: 1; transform: translateY(0); }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed;
+      bottom: 40px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white; padding: 10px 20px;
+      border-radius: 999px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem; letter-spacing: 0.15em;
+      opacity: 0; transition: all 0.3s var(--ease);
+      pointer-events: none; z-index: 200;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+<div id="topbar">
+  <div class="logo">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2v20M2 12h20" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    Parole
+  </div>
+  <div class="counter" id="counter">1 / ∞</div>
+</div>
+
+<div id="app"></div>
+<div id="toast"></div>
+
+<script>
+const VERSES = [
+  { text: "Car Dieu a tant aimé le monde qu'il a donné son Fils unique, afin que quiconque croit en lui ne périsse pas, mais qu'il ait la vie éternelle.", ref: "Jean 3:16", book: "Nouveau Testament" },
+  { text: "Je puis tout par celui qui me fortifie.", ref: "Philippiens 4:13", book: "Nouveau Testament" },
+  { text: "L'Éternel est mon berger : je ne manquerai de rien.", ref: "Psaumes 23:1", book: "Ancien Testament" },
+  { text: "Remets ton sort à l'Éternel, mets en lui ta confiance, et il agira.", ref: "Psaumes 37:5", book: "Ancien Testament" },
+  { text: "Ne t'abandonne pas à l'anxiété ; mais, en toute chose, fais connaître tes besoins à Dieu par des prières et des supplications, avec des actions de grâces.", ref: "Philippiens 4:6", book: "Nouveau Testament" },
+  { text: "Venez à moi, vous tous qui êtes fatigués et chargés, et je vous donnerai du repos.", ref: "Matthieu 11:28", book: "Nouveau Testament" },
+  { text: "Car je connais les projets que j'ai formés sur vous, projets de paix et non de malheur, afin de vous donner un avenir et de l'espérance.", ref: "Jérémie 29:11", book: "Ancien Testament" },
+  { text: "Fortifie-toi et prends courage ! Ne t'effraie pas, car l'Éternel, ton Dieu, est avec toi dans tout ce que tu entreprendras.", ref: "Josué 1:9", book: "Ancien Testament" },
+  { text: "L'amour est patient, il est plein de bonté ; l'amour n'est point envieux ; l'amour ne se vante point, il ne s'enfle point d'orgueil.", ref: "1 Corinthiens 13:4", book: "Nouveau Testament" },
+  { text: "Demandez, et l'on vous donnera ; cherchez, et vous trouverez ; frappez, et l'on vous ouvrira.", ref: "Matthieu 7:7", book: "Nouveau Testament" },
+  { text: "Heureux ceux qui ont le cœur pur, car ils verront Dieu !", ref: "Matthieu 5:8", book: "Nouveau Testament" },
+  { text: "Même si je marche dans la vallée de l'ombre de la mort, je ne crains aucun mal, car tu es avec moi.", ref: "Psaumes 23:4", book: "Ancien Testament" },
+  { text: "Ta parole est une lampe à mes pieds, et une lumière sur mon sentier.", ref: "Psaumes 119:105", book: "Ancien Testament" },
+  { text: "Mais ceux qui se confient en l'Éternel renouvellent leur force. Ils prennent le vol comme les aigles ; ils courent, et ne se lassent point.", ref: "Ésaïe 40:31", book: "Ancien Testament" },
+  { text: "Que votre lumière brille ainsi devant les hommes, afin qu'ils voient vos bonnes œuvres, et qu'ils glorifient votre Père qui est dans les cieux.", ref: "Matthieu 5:16", book: "Nouveau Testament" },
+  { text: "L'Éternel te bénisse et te garde ! L'Éternel fasse luire sa face sur toi, et t'accorde sa grâce !", ref: "Nombres 6:24-25", book: "Ancien Testament" },
+  { text: "Cherchez premièrement le royaume et la justice de Dieu ; et toutes ces choses vous seront données par-dessus.", ref: "Matthieu 6:33", book: "Nouveau Testament" },
+  { text: "C'est par la grâce que vous êtes sauvés, par le moyen de la foi. Et cela ne vient pas de vous, c'est le don de Dieu.", ref: "Éphésiens 2:8", book: "Nouveau Testament" },
+];
+
+const THEMES = [
+  { bg: "linear-gradient(135deg, #020817, #0f172a, #0a0a1a)", orb: "#3b82f6", accent: "#93c5fd" },
+  { bg: "linear-gradient(135deg, #0c0a00, #1c1200, #0a0800)", orb: "#f59e0b", accent: "#fcd34d" },
+  { bg: "linear-gradient(135deg, #0a0514, #130b2e, #07030d)", orb: "#8b5cf6", accent: "#c4b5fd" },
+  { bg: "linear-gradient(135deg, #00100e, #002622, #000d0b)", orb: "#14b8a6", accent: "#5eead4" },
+  { bg: "linear-gradient(135deg, #130008, #2d0012, #0d0005)", orb: "#f43f5e", accent: "#fda4af" },
+  { bg: "linear-gradient(135deg, #050d00, #0f2000, #030800)", orb: "#84cc16", accent: "#bef264" },
+];
+
+const likes = {};
+const saves = {};
+let cardCount = 0;
+let activeIndex = 0;
+const app = document.getElementById('app');
+const counter = document.getElementById('counter');
+
+function shuffle(arr) {
+  return [...arr].sort(() => Math.random() - 0.5);
+}
+
+function crossSVG(color) {
+  return `<svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+    <path d="M12 2v20M2 12h20" stroke="${color}" stroke-width="2.5" stroke-linecap="round"/>
+  </svg>`;
+}
+
+function heartSVG(filled, color) {
+  return `<svg width="22" height="22" viewBox="0 0 24 24" fill="${filled ? color : 'none'}" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+  </svg>`;
+}
+
+function bookmarkSVG(filled, color) {
+  return `<svg width="20" height="20" viewBox="0 0 24 24" fill="${filled ? color : 'none'}" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+  </svg>`;
+}
+
+function shareSVG(color) {
+  return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+  </svg>`;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+function createCard(verse, index, isFirst) {
+  const theme = THEMES[index % THEMES.length];
+  const id = `card-${index}`;
+
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.id = id;
+  card.dataset.index = index;
+
+  card.innerHTML = `
+    <div class="card-bg" style="background: ${theme.bg};">
+      <div class="orb orb1" style="background: ${theme.orb};"></div>
+      <div class="orb orb2" style="background: ${theme.orb};"></div>
+      <div class="orb orb3" style="background: ${theme.orb};"></div>
+    </div>
+
+    <div class="card-content">
+      <div class="book-badge" style="color: ${theme.accent};">
+        ${crossSVG(theme.accent)}
+        ${verse.book}
+      </div>
+      <div class="quote-mark" style="color: ${theme.accent};">"</div>
+      <p class="verse-text">${verse.text}</p>
+      <div class="divider">
+        <div class="divider-line"></div>
+        ${crossSVG(theme.accent)}
+        <div class="divider-line"></div>
+      </div>
+      <div class="verse-ref" style="color: ${theme.accent};">${verse.ref}</div>
+    </div>
+
+    <div class="actions">
+      <button class="action-btn" id="like-${id}" onclick="toggleLike('${id}', '${verse.ref.replace(/'/g,"\\'")}', '${theme.accent}')">
+        <div class="action-icon">${heartSVG(false, 'white')}</div>
+        <span class="action-label">J'aime</span>
+      </button>
+      <button class="action-btn" id="save-${id}" onclick="toggleSave('${id}', '${verse.ref.replace(/'/g,"\\'")}', '${theme.accent}')">
+        <div class="action-icon">${bookmarkSVG(false, 'white')}</div>
+        <span class="action-label">Sauver</span>
+      </button>
+      <button class="action-btn" id="share-${id}" onclick="shareVerse('${id}', \`${verse.text.replace(/`/g,'\\`')}\`, '${verse.ref.replace(/'/g,"\\'")}')">
+        <div class="action-icon">${shareSVG('white')}</div>
+        <span class="action-label" id="share-label-${id}">Partager</span>
+      </button>
+    </div>
+
+    ${isFirst ? `
+    <div class="scroll-hint">
+      <span>Défiler</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-opacity="0.3">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </div>` : ''}
+  `;
+
+  return card;
+}
+
+function toggleLike(id, ref, accent) {
+  likes[ref] = !likes[ref];
+  const btn = document.getElementById(`like-${id}`);
+  const icon = btn.querySelector('.action-icon');
+  icon.innerHTML = heartSVG(likes[ref], likes[ref] ? accent : 'white');
+  btn.classList.toggle('liked', likes[ref]);
+}
+
+function toggleSave(id, ref, accent) {
+  saves[ref] = !saves[ref];
+  const btn = document.getElementById(`save-${id}`);
+  const icon = btn.querySelector('.action-icon');
+  icon.innerHTML = bookmarkSVG(saves[ref], saves[ref] ? accent : 'white');
+  btn.classList.toggle('saved', saves[ref]);
+}
+
+function shareVerse(id, text, ref) {
+  const content = `"${text}" — ${ref}`;
+  if (navigator.share) {
+    navigator.share({ text: content, title: 'Verset Biblique — Parole' });
+  } else {
+    navigator.clipboard.writeText(content).then(() => {
+      showToast('Verset copié !');
+    });
+  }
+}
+
+function addVerses(count = 5) {
+  const pool = shuffle(VERSES);
+  for (let i = 0; i < count; i++) {
+    const verse = pool[i % pool.length];
+    const card = createCard(verse, cardCount, cardCount === 0);
+    app.appendChild(card);
+    cardCount++;
+  }
+}
+
+// Intersection Observer for animations + infinite scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      const idx = parseInt(entry.target.dataset.index);
+      activeIndex = idx;
+      counter.textContent = `${idx + 1} / ∞`;
+
+      // Load more when near end
+      if (idx >= cardCount - 3) addVerses(5);
+    }
+  });
+}, { threshold: 0.6 });
+
+// Init
+addVerses(8);
+document.querySelectorAll('.card').forEach(c => observer.observe(c));
+
+// Observe new cards dynamically
+const mutationObserver = new MutationObserver(mutations => {
+  mutations.forEach(m => {
+    m.addedNodes.forEach(node => {
+      if (node.classList && node.classList.contains('card')) {
+        observer.observe(node);
+      }
+    });
+  });
+});
+mutationObserver.observe(app, { childList: true });
+</script>
+</body>
+</html>
