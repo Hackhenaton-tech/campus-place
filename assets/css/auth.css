@@ -1,0 +1,92 @@
+/* Campus Space – styles communs au login et à l'inscription vendeur */
+
+.auth-page { background: var(--alt); }
+.btn-sm { padding: 10px 16px; font-size: .92rem; }
+
+.auth-main { padding: clamp(24px, 5vw, 56px) 0 64px; }
+.auth-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 28px 20px 32px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.auth-card.wide { max-width: 600px; }
+.auth-card h1 { font-size: clamp(1.8rem, 5vw, 2.3rem); font-weight: 800; }
+.auth-lead { margin-top: 10px; color: var(--muted); max-width: 44ch; }
+
+.form-alert {
+  margin-top: 20px; padding: 12px 14px; border-radius: 8px;
+  background: #FDECEA; color: #8A1C12; font-size: .95rem; font-weight: 500;
+}
+
+/* ---------- Champs ---------- */
+form { margin-top: 24px; }
+.field { margin-bottom: 18px; border: 0; min-width: 0; }
+.field > label, .field > legend, .label-row label {
+  display: block; font-weight: 600; font-size: .95rem; color: var(--ink); margin-bottom: 6px; padding: 0;
+}
+.label-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+.label-row label { margin-bottom: 0; }
+.label-row a { font-size: .9rem; color: var(--ink); }
+.optional { font-weight: 400; color: var(--muted); }
+.hint { margin-top: 6px; font-size: .88rem; color: var(--muted); }
+
+input[type="text"], input[type="tel"], input[type="password"], select, textarea {
+  width: 100%;
+  font: 400 1rem/1.4 var(--body);
+  color: var(--ink);
+  background: #fff;
+  padding: 13px 14px;
+  border: 1.5px solid rgba(11, 31, 75, .3);
+  border-radius: 8px;
+  appearance: none;
+}
+textarea { resize: vertical; min-height: 84px; }
+select {
+  padding-right: 40px;
+  background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+  background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+input::placeholder, textarea::placeholder { color: #9AA1AF; }
+input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid rgba(255, 138, 0, .55); outline-offset: 0; border-color: var(--ink); }
+
+.phone-wrap { display: flex; }
+.phone-prefix {
+  display: flex; align-items: center; padding: 0 14px;
+  background: var(--alt); color: var(--ink); font-weight: 600;
+  border: 1.5px solid rgba(11, 31, 75, .3); border-right: 0; border-radius: 8px 0 0 8px;
+}
+.phone-wrap input { border-radius: 0 8px 8px 0; }
+
+.pw-wrap { position: relative; }
+.pw-wrap input { padding-right: 96px; }
+.pw-toggle {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  background: none; border: 0; cursor: pointer;
+  font: 600 .88rem var(--body); color: var(--ink); padding: 8px 10px; border-radius: 6px;
+}
+.pw-toggle:hover { background: var(--alt); }
+
+/* ---------- Erreurs ---------- */
+.field-error { margin-top: 6px; font-size: .9rem; font-weight: 500; color: #B42318; }
+.field.has-error input, .field.has-error select, .field.has-error textarea { border-color: #B42318; }
+.field.has-error .pay span { border-color: #B42318; }
+
+/* ---------- Cases à cocher ---------- */
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: .95rem; }
+.check input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--accent); flex: none; }
+.check a { color: var(--ink); }
+
+/* ---------- Bouton et liens ---------- */
+.submit { width: 100%; margin-top: 8px; }
+.submit[disabled] { opacity: .7; cursor: wait; }
+.auth-switch { margin-top: 22px; text-align: center; font-size: .95rem; }
+.auth-switch a { color: var(--ink); font-weight: 600; }
+.auth-foot { margin-top: 28px; text-align: center; font-size: .85rem; color: var(--muted); }
+
+/* La case des conditions garde sa mise en forme propre (plus spécifique que .field > label) */
+.field > label.check { display: flex; font-weight: 400; color: var(--text); margin-bottom: 0; }

@@ -1,0 +1,7 @@
+/* Campus Space – page de connexion (le reste est dans auth.css) */
+
+.auth-card { margin-top: 0; }
+
+@media (min-width: 760px) {
+  .auth-card { padding: 40px 40px 44px; }
+}
