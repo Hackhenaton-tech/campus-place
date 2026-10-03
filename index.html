@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Campus Space – Vends à tes camarades, sans quitter le campus</title>
+<meta name="description" content="La marketplace des étudiants d'Abidjan. Publie tes produits, reçois les commandes sur WhatsApp, fais-toi payer en Mobile Money.">
+<link rel="icon" href="assets/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a href="#haut" class="brand" aria-label="Campus Space, accueil"><img src="assets/images/logo.png" alt="Campus Space" width="541" height="225"></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Navigation principale">
+      <a href="#annonces">Annonces</a>
+      <a href="#comment">Comment ça marche</a>
+      <a href="#vendre">Pourquoi vendre ici</a>
+      <a href="login.html">Se connecter</a>
+      <a class="btn btn-primary" href="sign-up-vendor.html">Ouvrir ma boutique</a>
+    </nav>
+  </div>
+</header>
+
+<main id="haut">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Vends à tes camarades, sans quitter le campus.</h1>
+        <p class="hero-lead">Campus Space réunit les boutiques d'étudiants d'Abidjan. Tu publies tes produits, les commandes arrivent sur WhatsApp, tu te fais payer par Wave, Orange Money ou MTN.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="sign-up-vendor.html">Ouvrir ma boutique</a>
+          <a class="btn btn-ghost" href="#annonces">Voir les annonces</a>
+        </div>
+        <p class="hero-note">Des étudiants de l'UFHB, de l'INPHB, de l'UCAO et de l'ENSEA vendent déjà ici.</p>
+      </div>
+
+      <div class="chat-wrap">
+        <p class="chat-cap">Voilà à quoi ressemble une commande :</p>
+        <div class="chat" role="img" aria-label="Exemple de conversation WhatsApp entre un acheteur et une vendeuse de sacs à l'UFHB">
+          <div class="chat-head"><b>Awa Koné</b><span>Sacs, UFHB</span></div>
+          <div class="chat-body" aria-hidden="true">
+            <p class="msg in" style="--i:0">Salut, le sac à dos est encore dispo ?</p>
+            <p class="msg out" style="--i:1">Oui ! 9 800 FCFA. Je suis au bloc B.</p>
+            <p class="msg in" style="--i:2">Je le prends. Je paie par Wave ?</p>
+            <p class="msg out" style="--i:3">Oui, je t'envoie le numéro. Remise cet après-midi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ads" id="annonces">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Ce qui se vend en ce moment</h2>
+        <p>Choisis un article, écris directement au vendeur sur WhatsApp. Pas de panier, pas de compte à créer.</p>
+      </div>
+
+      <div class="chips" role="group" aria-label="Filtrer par catégorie">
+        <button class="chip" data-cat="tout" aria-pressed="true">Tout</button>
+        <button class="chip" data-cat="mode" aria-pressed="false">Mode</button>
+        <button class="chip" data-cat="sacs" aria-pressed="false">Sacs et accessoires</button>
+        <button class="chip" data-cat="beaute" aria-pressed="false">Beauté</button>
+        <button class="chip" data-cat="nourriture" aria-pressed="false">Nourriture</button>
+        <button class="chip" data-cat="services" aria-pressed="false">Services</button>
+        <button class="chip" data-cat="digital" aria-pressed="false">Produits digitaux</button>
+      </div>
+
+      <p class="ad-count" id="adCount" aria-live="polite"></p>
+
+      <ul class="ad-list" id="adList">
+        <li class="ad" data-cat="sacs" data-wa="2250556232274">
+          <div class="ad-img" style="background:linear-gradient(135deg,#F5F7FA,#F5F7FA)" aria-hidden="true">👜<img src="assets/images/Sac%20%C3%A0%20main%20en%20cuir.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+          <div class="ad-main"><h3>Sac à main en cuir</h3><p class="ad-by">Vendu par Shakira Koffi à l'UFHB</p></div>
+          <p class="ad-price">12&nbsp;500 FCFA</p>
+          <a class="ad-cta" href="#">Commander sur WhatsApp</a>
+        </li>
+        <li class="ad" data-cat="mode" data-wa="2250556232274">
+          <div class="ad-img" style="background:linear-gradient(135deg,#fef3c7,#fde68a)" aria-hidden="true">👕<img src="assets/images/T-shirt%20oversize%20uni.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+          <div class="ad-main"><h3>T-shirt oversize uni</h3><p class="ad-by">Vendu par Koffi Yao à l'INPHB</p></div>
+          <p class="ad-price">5&nbsp;500 FCFA</p>
+          <a class="ad-cta" href="#">Commander sur WhatsApp</a>
+        </li>
+        <li class="ad" data-cat="beaute" data-wa="2250556232274">
+          <div class="ad-img" style="background:linear-gradient(135deg,#fce7f3,#fbcfe8)" aria-hidden="true">💄<img src="assets/images/Rouge%20%C3%A0%20l%C3%A8vres%20mat%20longue%20tenue.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+          <div class="ad-main"><h3>Rouge à lèvres mat longue tenue</h3><p class="ad-by">Vendu par Aminata Traoré à l'UFHB</p></div>
+          <p class="ad-price">3&nbsp;000 FCFA</p>
+          <a class="ad-cta" href="#">Commander sur WhatsApp</a>
+        </li>
+        
+        <li class="ad" data-cat="sacs" data-wa="2250556232274">
+          <div class="ad-img" style="background:linear-gradient(135deg,#e0e7ff,#c7d2fe)" aria-hidden="true">🎒<img src="assets/images/sac-à-dos.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+          
+          <div class="ad-main"><h3>Sac à dos étudiant résistant</h3><p class="ad-by">Vendu par Awa Koné à l'UFHB</p></div>
+          <p class="ad-price">9&nbsp;800 FCFA</p>
+          <a class="ad-cta" href="#">Commander sur WhatsApp</a>
+        </li>
+        <li class="ad" data-cat="sacs" data-wa="2250556232274">
+          <div class="ad-img" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)" aria-hidden="true">📱<img src="assets/images/Coque%20iPhoneprotection%20%C3%A9cran.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+          <div class="ad-main"><h3>Coque iPhone + protection écran</h3><p class="ad-by">Vendu par Jean-Baptiste N. à l'ENSEA</p></div>
+          <p class="ad-price">4&nbsp;000 FCFA</p>
+          <a class="ad-cta" href="#">Commander sur WhatsApp</a>
+        </li>
+        <li class="ad" data-cat="services" data-wa="2250556232274">
+          <div class="ad-img" style="background:linear-gradient(135deg,#fef3c7,#fcd34d)" aria-hidden="true">📚<img src="assets/images/Cours%20de%20maths%2C%20niveau%20L1.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+          <div class="ad-main"><h3>Cours de maths, niveau L1</h3><p class="ad-by">Proposé par Fatou Bamba à l'UFHB</p></div>
+          <p class="ad-price">7&nbsp;500 FCFA</p>
+          <a class="ad-cta" href="#">Réserver sur WhatsApp</a>
+        </li>
+      </ul>
+
+      <p class="empty" id="empty" hidden>Aucune annonce dans cette catégorie pour l'instant. <a href="sign-up-vendor.html">Publie la première.</a></p>
+    </div>
+  </section>
+
+  <section class="section alt" id="comment">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Ta boutique en trois étapes</h2>
+      </div>
+      <ol class="steps">
+        <li class="step">
+          <div class="step-n">1</div>
+          <h3>Crée ton compte</h3>
+          <p>Avec ton numéro et ton campus. C'est gratuit.</p>
+        </li>
+        <li class="step">
+          <div class="step-n">2</div>
+          <h3>Ajoute tes articles</h3>
+          <p>Une photo, un prix, une description. Quelques minutes par article.</p>
+        </li>
+        <li class="step">
+          <div class="step-n">3</div>
+          <h3>Reçois et encaisse</h3>
+          <p>Les commandes arrivent sur ton WhatsApp. Tu te fais payer par Wave, Orange Money ou MTN.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section band" id="vendre">
+    <div class="wrap band-grid">
+      <div>
+        <h2>Tu ne paies rien pour commencer.</h2>
+        <p class="band-lead">Campus Space est pensé pour les étudiants d'Abidjan, avec les moyens de paiement qu'ils utilisent déjà.</p>
+      </div>
+      <dl class="perks">
+        <div><dt>Inscription gratuite</dt><dd>Tu crées ta boutique sans frais.</dd></div>
+        <div><dt>Paiement Mobile Money</dt><dd>Wave, Orange Money ou MTN, comme pour le reste.</dd></div>
+        <div><dt>Des acheteurs sur ton campus</dt><dd>Tes annonces sont vues par les étudiants de ton campus et des autres.</dd></div>
+        <div><dt>Un coup de main pour te faire connaître</dt><dd>On t'aide à promouvoir ta boutique sur les réseaux et sur les campus.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Ce qu'en disent les vendeurs</h2>
+      </div>
+      <div class="voices">
+        <figure class="voice">
+          <blockquote>« J'ai vendu plus de 40 sacs en deux mois. Les étudiants commandent directement sur WhatsApp, c'est pratique. »</blockquote>
+          <figcaption>Awa Koné, vend des sacs à l'UFHB</figcaption>
+        </figure>
+        <figure class="voice">
+          <blockquote>« Mes plats livrés le midi m'ont aidé à payer une partie de mes frais de scolarité. »</blockquote>
+          <figcaption>Yao Kouassi, cuisine et livraison à l'UCAO</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="wrap">
+      <h2>Ouvre ta boutique en quelques minutes.</h2>
+      <p>Crée ton compte gratuitement, puis publie ton premier article.</p>
+      <a class="btn" href="sign-up-vendor.html">Créer ma boutique</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#haut" class="brand brand-foot" aria-label="Campus Space, accueil"><img src="assets/images/logo.png" alt="Campus Space" width="541" height="225"></a>
+        <p>La marketplace des étudiants d'Abidjan.</p>
+      </div>
+      <div>
+        <h4>Sur le site</h4>
+        <ul>
+          <li><a href="#annonces">Annonces</a></li>
+          <li><a href="#comment">Comment ça marche</a></li>
+          <li><a href="#vendre">Pourquoi vendre ici</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Nous écrire</h4>
+        <ul>
+          <li><a href="https://wa.me/2250556232274" target="_blank" rel="noopener">WhatsApp : +225 05 56 23 22 74</a></li>
+          <li><a href="mailto:hello@campusspace.ci">hello@campusspace.ci</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="foot-end">© 2026 Campus Space. Fait à Abidjan.</p>
+  </div>
+</footer>
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>

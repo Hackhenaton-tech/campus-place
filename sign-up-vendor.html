@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ouvrir ma boutique – Campus Space</title>
+<meta name="description" content="Crée ta boutique Campus Space gratuitement et vends à tes camarades depuis ton campus.">
+<link rel="icon" href="assets/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/auth.css">
+<link rel="stylesheet" href="assets/css/sign-up-vendor.css">
+</head>
+<body class="auth-page">
+
+<header class="top">
+  <div class="wrap top-in">
+    <a href="index.html" class="brand" aria-label="Campus Space, accueil"><img src="assets/images/logo.png" alt="Campus Space" width="541" height="225"></a>
+    <a class="btn btn-ghost btn-sm" href="login.html">Se connecter</a>
+  </div>
+</header>
+
+<main class="auth-main">
+  <div class="wrap">
+    <div class="auth-card wide">
+
+      <div id="formView">
+        <h1>Ouvre ta boutique</h1>
+        <p class="auth-lead">C'est gratuit et ça prend quelques minutes. Tu pourras ajouter tes articles juste après.</p>
+
+        <div class="form-alert" id="formAlert" role="alert" hidden></div>
+
+        <form id="signupForm" novalidate>
+
+          <fieldset class="section-block">
+            <legend>Toi</legend>
+
+            <div class="field">
+              <label for="fullname">Nom et prénom</label>
+              <input id="fullname" name="fullname" type="text" autocomplete="name" aria-describedby="fullname-error" required>
+              <p class="field-error" id="fullname-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="phone">Numéro WhatsApp</label>
+              <div class="phone-wrap">
+                <span class="phone-prefix" aria-hidden="true">+225</span>
+                <input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="05 56 23 22 74" aria-describedby="phone-hint phone-error" required>
+              </div>
+              <p class="hint" id="phone-hint">Tes acheteurs t'écriront sur ce numéro.</p>
+              <p class="field-error" id="phone-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="campus">Ton campus</label>
+              <select id="campus" name="campus" aria-describedby="campus-error" required>
+                <option value="">Choisis ton campus</option>
+                <option value="UFHB">UFHB, Université Félix Houphouët-Boigny</option>
+                <option value="INPHB">INPHB, Institut National Polytechnique</option>
+                <option value="UCAO">UCAO, Université Catholique de l'Afrique de l'Ouest</option>
+                <option value="ENSEA">ENSEA, École Nationale Supérieure de Statistique</option>
+                <option value="autre">Un autre campus</option>
+              </select>
+              <p class="field-error" id="campus-error" hidden></p>
+            </div>
+
+            <div class="field" id="campusOtherField" hidden>
+              <label for="campusOther">Nom de ton campus</label>
+              <input id="campusOther" name="campusOther" type="text" aria-describedby="campusOther-error">
+              <p class="field-error" id="campusOther-error" hidden></p>
+            </div>
+          </fieldset>
+
+          <fieldset class="section-block">
+            <legend>Ta boutique</legend>
+
+            <div class="field">
+              <label for="shop">Nom de la boutique</label>
+              <input id="shop" name="shop" type="text" maxlength="40" aria-describedby="shop-error" required>
+              <p class="field-error" id="shop-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="category">Ce que tu vends</label>
+              <select id="category" name="category" aria-describedby="category-error" required>
+                <option value="">Choisis une catégorie</option>
+                <option value="mode">Mode</option>
+                <option value="sacs">Sacs et accessoires</option>
+                <option value="beaute">Beauté</option>
+                <option value="nourriture">Nourriture</option>
+                <option value="services">Services</option>
+                <option value="digital">Produits digitaux</option>
+              </select>
+              <p class="field-error" id="category-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="bio">Décris ta boutique <span class="optional">(facultatif)</span></label>
+              <textarea id="bio" name="bio" maxlength="140" aria-describedby="bio-count"></textarea>
+              <p class="hint" id="bio-count">0 / 140</p>
+            </div>
+          </fieldset>
+
+          <fieldset class="section-block">
+            <legend>Paiement</legend>
+
+            <fieldset class="field" id="payField">
+              <legend>Comment veux-tu être payé ?</legend>
+              <div class="pay-grid" id="pay">
+                <label class="pay"><input type="checkbox" name="pay" value="wave"><span>Wave</span></label>
+                <label class="pay"><input type="checkbox" name="pay" value="orange"><span>Orange Money</span></label>
+                <label class="pay"><input type="checkbox" name="pay" value="mtn"><span>MTN</span></label>
+              </div>
+              <p class="hint">Choisis-en au moins un. Tu pourras les changer plus tard.</p>
+              <p class="field-error" id="pay-error" hidden></p>
+            </fieldset>
+          </fieldset>
+
+          <fieldset class="section-block">
+            <legend>Ton compte</legend>
+
+            <div class="field">
+              <label for="password">Mot de passe</label>
+              <div class="pw-wrap">
+                <input id="password" name="password" type="password" autocomplete="new-password" aria-describedby="password-hint password-error" required>
+                <button type="button" class="pw-toggle" id="pwToggle" aria-pressed="false" aria-controls="password">Afficher</button>
+              </div>
+              <p class="hint" id="password-hint">Au moins 8 caractères.</p>
+              <p class="field-error" id="password-error" hidden></p>
+            </div>
+
+            <div class="field">
+              <label class="check" for="terms">
+                <input id="terms" name="terms" type="checkbox" aria-describedby="terms-error">
+                <span>J'accepte les <a href="#">conditions d'utilisation</a> de Campus Space.</span>
+              </label>
+              <p class="field-error" id="terms-error" hidden></p>
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn btn-primary submit" id="submitBtn">Créer ma boutique</button>
+        </form>
+
+        <p class="auth-switch">Tu as déjà une boutique ? <a href="login.html">Connecte-toi</a></p>
+      </div>
+
+      <div id="successView" class="success" hidden>
+        <h1 id="successTitle" tabindex="-1">Ta boutique est créée</h1>
+        <p class="auth-lead" id="successText"></p>
+        <a class="btn btn-primary submit" href="login.html">Me connecter</a>
+        <p class="auth-switch"><a href="index.html">Retour aux annonces</a></p>
+      </div>
+
+    </div>
+
+    <p class="auth-foot">© 2026 Campus Space. Fait à Abidjan.</p>
+  </div>
+</main>
+
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/sign-up-vendor.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Connexion vendeur – Campus Space</title>
+<meta name="description" content="Connecte-toi à ta boutique Campus Space pour gérer tes annonces et tes commandes.">
+<link rel="icon" href="assets/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/auth.css">
+<link rel="stylesheet" href="assets/css/login.css">
+</head>
+<body class="auth-page">
+
+<header class="top">
+  <div class="wrap top-in">
+    <a href="index.html" class="brand" aria-label="Campus Space, accueil"><img src="assets/images/logo.png" alt="Campus Space" width="541" height="225"></a>
+    <a class="btn btn-ghost btn-sm" href="sign-up-vendor.html">Devenir vendeur</a>
+  </div>
+</header>
+
+<main class="auth-main">
+  <div class="wrap">
+    <div class="auth-card">
+      <h1>Connecte-toi à ta boutique</h1>
+      <p class="auth-lead">Retrouve tes annonces et tes commandes.</p>
+
+      <div class="form-alert" id="formAlert" role="alert" hidden></div>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="phone">Numéro WhatsApp</label>
+          <div class="phone-wrap">
+            <span class="phone-prefix" aria-hidden="true">+225</span>
+            <input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="05 56 23 22 74" aria-describedby="phone-error" required>
+          </div>
+          <p class="field-error" id="phone-error" hidden></p>
+        </div>
+
+        <div class="field">
+          <div class="label-row">
+            <label for="password">Mot de passe</label>
+            <a href="#" id="forgot" target="_blank" rel="noopener">Mot de passe oublié ?</a>
+          </div>
+          <div class="pw-wrap">
+            <input id="password" name="password" type="password" autocomplete="current-password" aria-describedby="password-error" required>
+            <button type="button" class="pw-toggle" id="pwToggle" aria-pressed="false" aria-controls="password">Afficher</button>
+          </div>
+          <p class="field-error" id="password-error" hidden></p>
+        </div>
+
+        <button type="submit" class="btn btn-primary submit" id="submitBtn">Me connecter</button>
+      </form>
+
+      <p class="auth-switch">Pas encore de boutique ? <a href="sign-up-vendor.html">Crée la tienne</a></p>
+    </div>
+
+    <p class="auth-foot">© 2026 Campus Space. Fait à Abidjan.</p>
+  </div>
+</main>
+
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/login.js"></script>
+</body>
+</html>
